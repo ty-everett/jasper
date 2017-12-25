@@ -3,7 +3,7 @@ JASPER - Just Another Synthesized Personal Electronic Robot
 Attribution
 
 This project as heavily inspired by the great work of the
-https://jasper.io/ team. While none of your code was used
+http://jasperproject.github.io/ team. While none of your code was used
 in this project, this project wouldn't be what it is without
 your contributions.
 
@@ -21,3 +21,4 @@ Features
 - HTML/CSS user interface
 - JavaScript core logic
 - Python-based motor/GPIO integration
+
