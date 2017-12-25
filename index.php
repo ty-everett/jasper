@@ -260,6 +260,28 @@ async function jstart(){
 					//alert(JSON.stringify(result)); // DEBUG
 				}
 			});
+		}else if(input.indexOf(" news") !== -1 || input.indexOf(" headlines") !== -1){
+			var topic = "technology"; // default
+			if(input.indexOf(" about ") !== -1){
+				topic = input.substr(input.indexOf("about ") + 6);
+			}
+			$.ajax({
+				type: "GET",
+				url: "https://newsapi.org/v2/everything",
+				data: {
+					q: topic,
+					apiKey: "GET_FROM_NEWSAPI>ORG"
+				},
+				success: function(result){
+					var response = "";
+					var f = result.articles;
+					for(var i = 0; i < 4; /*f.length;*/ i++){
+						response += f[i].title + ": " + f[i].description + " ";
+					}
+					s(response);
+					//alert(JSON.stringify(result)); // DEBUG
+				}
+			});
 		}else if(input.startsWith("move") || input.startsWith("walk") || 
 				input.startsWith("turn") || input.startsWith("drive") ||
 				input.startsWith("go") || input.startsWith("skirt")){
