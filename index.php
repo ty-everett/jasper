@@ -100,6 +100,17 @@ var parsenumbers = function(s){ // turns a string into numbers
 	}
 	return s;
 }
+function dayparse(s){ // convert abbreviations into days of the week
+	var r = "error";
+	if(s=="Sun")r="Sunday";
+	if(s=="Mon")r="Monday";
+	if(s=="Tue")r="Tuesday";
+	if(s=="Wed")r="Wednesday";
+	if(s=="Thu")r="Thursday";
+	if(s=="Fri")r="Friday";
+	if(s=="Sat")r="Saturday";
+	return r;
+}
 function sleep(ms) { // sleep hack
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -221,6 +232,34 @@ async function jstart(){
 			w(query);
 		}else if(input == "rock out" || input.indexOf("pandora") !== -1){
 			run("DISPLAY=:0 pithos &");
+		}else if(input.indexOf("weather") !== -1 || input.indexOf("forecast") !== -1){
+			var place = "New York City"; // default
+			if(input.indexOf("in ") !== -1){
+				place = input.substr(input.indexOf("in ") + 3, input.length);
+			}else if(input.indexOf("for ") !== -1){
+				place = input.substr(input.indexOf("for ") + 4, input.length);
+			}else{
+				s("Sorry, I didn't get that.");
+				return;
+			}
+			var query = "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"" + place + "\")";
+			$.ajax({
+				type: "GET",
+				url: "https://query.yahooapis.com/v1/public/yql",
+				data: {q: query, format: "json"},
+				success: function(result){
+					//var s = new XMLSerializer();
+					//var result = s.serializeToString(resultxml);
+					
+					var response = "In " + place + " ";
+					var f = result.query.results.channel.item.forecast
+					for(var i = 0; i < 4; /*f.length;*/ i++){
+						response += "On " + dayparse(f[i].day) + " expect " + f[i].text + " with a high of " + f[i].high + " and a low of " + f[i].low + ". ";
+					}
+					s(response);
+					//alert(JSON.stringify(result)); // DEBUG
+				}
+			});
 		}else if(input.startsWith("move") || input.startsWith("walk") || 
 				input.startsWith("turn") || input.startsWith("drive") ||
 				input.startsWith("go") || input.startsWith("skirt")){
@@ -265,7 +304,7 @@ async function jstart(){
 					s("Oops, something went wrong. I didn't understand your directions.");
 				}
 			}
-			//alert(dircmd);
+			//alert(dircmd); // DEBUG
 			run(dircmd);
 		}else if(input.indexOf("time") !== -1){
 			if(input.indexOf("please") !== -1){
