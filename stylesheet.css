@@ -1,0 +1,46 @@
+body {
+	background-color:red;
+	-webkit-animation: colorchange 8s;
+	-webkit-animation-iteration-count: infinite;
+	color:white;
+	font-family:helvetica;
+	margin:0px;
+	padding:0px;
+	font-size:1.2em;
+}
+@media screen {
+  html {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 100vh;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+}
+#face {
+	width:80%;
+	margin-top:-2em;
+}
+#text {
+	color:yellow;
+	margin-left:1em;
+	margin-right:1em;
+}
+@-webkit-keyframes colorchange {
+  0%   {background: #003300;}
+  25%  {background: #440044;}
+  50%  {background: #220000;}
+  75%  {background: black;}
+  100% {background: #003300;}
+}
+h1 {
+	margin-top:0.5em;
+	margin-bottom:0em;
+}
+.subtitle {
+	margin-top:0.1em;
+	margin-left:2em;
+	margin-right:2em;
+}
