@@ -1,0 +1,19 @@
+{
+  "name": "jasper-js",
+  "version": "0.1.0",
+  "description": "Project Jasper Implemented in JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ty-everett/jasper.git"
+  },
+  "author": "Ty Everett <ty@tyweb.us>",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ty-everett/jasper/issues"
+  },
+  "homepage": "https://github.com/ty-everett/jasper#readme"
+}
