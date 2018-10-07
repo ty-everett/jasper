@@ -1,32 +1,43 @@
-.App {
+.Jasper {
+  position: fixed;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   text-align: center;
+  font-size: 1.2em;
+  background-color: red;
+  color:white;
+	-webkit-animation: colorChange 8s;
+	-webkit-animation-iteration-count: infinite;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+@-webkit-keyframes colorChange {
+  0%   {background: #003300;}
+  25%  {background: #440044;}
+  50%  {background: #220000;}
+  75%  {background: black;}
+  100% {background: #003300;}
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.JasperFace {
+  width:80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.App-link {
-  color: #61dafb;
+.JasperText {
+  color: yellow;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.JasperTitle {
+  font-size: 2em;
+}
+
+.JasperSubtitle {
+  color: #999999;
 }

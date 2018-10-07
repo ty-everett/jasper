@@ -142,12 +142,7 @@ async function jstart(){
 
 
 		if(input == "hello" || input == "hi" || input == "greetings" || input == "salutations"){
-			var coin = Math.floor((Math.random() * 2) + 1);
-			if(coin == 1){
-				s("It's nice to meet you.");
-			}else{
-				s("How. High are you. Um. I mean. Hi. How are you.");
-			}
+			s("It's nice to meet you!");
 		}else if(input == "what is your name"){
 			s("I'm Jasper. My name is also an acronym. It stands for Just. Another. Synthesized. Personal. Electronic. Robot. It's nice to meet you. By the way.");
 		}else if(input.indexOf("laugh") !== -1 ||

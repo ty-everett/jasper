@@ -1,10 +1,12 @@
-const express = require('express')
-const url = require('url')
-const { exec } = require('child_process')
+var express = require('express')
+var url = require('url')
+var { exec } = require('child_process')
 
-const app = express()
+var app = express()
 
-app.get('/exec.php', (req, res) => {
+app.use(express.static(__dirname + '/build'))
+
+app.get('/runLocal', (req, res) => {
     const args = url.parse(req.url, true).query
     console.log('GET /exec.php with args', args)
     if(args.auth == '8765'){
