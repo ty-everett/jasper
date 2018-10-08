@@ -35,7 +35,7 @@ class App extends Component
         <img
           className="JasperFace"
           alt="JASPER Face"
-          src={this.state.eyesClosed ? face : faceSleepy}
+          src={this.state.eyesClosed ? faceSleepy : face}
           onClick={this.reloadPage}
         />
         <p className="JasperText">{this.state.text}</p>

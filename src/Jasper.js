@@ -1,4 +1,4 @@
-import startSound from './res/start.wav'
+//import startSound from './res/start.wav'
 import stopSound from './res/stop.wav'
 
 import Util from './Util.js'
@@ -32,6 +32,8 @@ class Jasper
       // set up utils and command handler
       this.util = new Util(this)
       this.commandHandler = new CommandHandler(this.util)
+      // randomly blink Jasper's eyes
+      this.util.randomlyBlink()
       // start listening
       this.recognizer.start()
       this.util.speakText("Jasper is ready", false)
@@ -46,7 +48,8 @@ class Jasper
     {
       this.util.updateDisplay(transcript)
     }
-    if (result[0].transcript.toLowerCase().indexOf('hey jasper') !== -1 && this.state === 'waiting')
+    if (result[0].transcript.toLowerCase().indexOf('hey jasper') !== -1 &&
+        this.state === 'waiting')
     {
       this.setState('listening')
     } else if (result.isFinal && this.state === 'listening')
@@ -68,22 +71,32 @@ class Jasper
     console.log('Jasper: onSpeechStart called')
   }
 
-  setState = (state) =>
+  setState = (newState) =>
   {
-    console.log('Jasper: state from', this.state, 'to', state)
-    if (this.state === 'waiting' && state === 'listening')
+    console.log('Jasper: state from', this.state, 'to', newState)
+    if (this.state === 'waiting' && newState === 'listening')
     {
-      new Audio(startSound).play()
+      this.util.updateDisplay("listening...")
     }
-    if (state === 'waiting' && this.state === 'dead')
-    {
-      this.recognizer.start()
-    }
-    if (state === 'waiting' && this.state === 'listening')
+    if (this.state === 'listening' && newState === 'waiting')
     {
       new Audio(stopSound).play()
     }
-    this.state = state
+    if (newState === 'dead')
+    {
+      if(this.recognizing === false)
+      {
+        try {
+          this.recognizer.start()
+          newState = this.state
+          if (newState === 'dead')
+          {
+            newState = 'listening'
+          }
+        } catch (e) {}
+      }
+    }
+    this.state = newState
   }
 
   onSpeechEnd = (event) =>
@@ -115,7 +128,15 @@ class Jasper
 
     console.log('Jasper: Processing command:', command)
 
-    this.commandHandler.handle(command)
+    try{
+      this.commandHandler.handle(command)
+    } catch (e)
+    {
+      var message = 'It seems like I have just crashed. The error was: '
+      message += e.message
+      this.util.speakText(message)
+      this.util.updateDisplay(e.message + ' stack: ' + e.stack)
+    }
 
     // set the state back to waiting
     this.setState('waiting')
